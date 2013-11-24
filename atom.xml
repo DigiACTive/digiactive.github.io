@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[DigiACTive]]></title>
+  <link href="http://DigiACTive.github.io/atom.xml" rel="self"/>
+  <link href="http://DigiACTive.github.io/"/>
+  <updated>2013-11-24T16:48:48+11:00</updated>
+  <id>http://DigiACTive.github.io/</id>
+  <author>
+    <name><![CDATA[DigiACTive Team]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
