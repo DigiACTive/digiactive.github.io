@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[DigiACTive]]></title>
-  <link href="http://DigiACTive.github.io/atom.xml" rel="self"/>
-  <link href="http://DigiACTive.github.io/"/>
-  <updated>2013-11-24T17:36:38+11:00</updated>
-  <id>http://DigiACTive.github.io/</id>
+  <link href="http://digiactive.com.au/atom.xml" rel="self"/>
+  <link href="http://digiactive.com.au/"/>
+  <updated>2013-11-25T22:00:28+11:00</updated>
+  <id>http://digiactive.com.au/</id>
   <author>
     <name><![CDATA[DigiACTive Team]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://DigiACTive.github.io/blog/2013/11/24/hello-world/"/>
+    <link href="http://digiactive.com.au/blog/2013/11/24/hello-world/"/>
     <updated>2013-11-24T16:58:20+11:00</updated>
-    <id>http://DigiACTive.github.io/blog/2013/11/24/hello-world</id>
+    <id>http://digiactive.com.au/blog/2013/11/24/hello-world</id>
     <content type="html"><![CDATA[<p>Greetings, Internet!</p>
 
 <p>We&rsquo;re DigiACTive, a team of students from the <a href="http://anu.edu.au">Australian National University</a> competing in the inaugural <a href="http://digitalcanberrachallenge.com.au">Digital Canberra Challenge</a>.</p>

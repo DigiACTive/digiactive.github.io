@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://DigiACTive.github.io/sitemap.xml 
+Sitemap: http://digiactive.com.au/sitemap.xml 
