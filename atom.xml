@@ -4,7 +4,7 @@
   <title><![CDATA[DigiACTive]]></title>
   <link href="http://digiactive.com.au/atom.xml" rel="self"/>
   <link href="http://digiactive.com.au/"/>
-  <updated>2013-11-25T22:00:28+11:00</updated>
+  <updated>2013-12-13T14:16:01+11:00</updated>
   <id>http://digiactive.com.au/</id>
   <author>
     <name><![CDATA[DigiACTive Team]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Follow Us on Twitter!]]></title>
+    <link href="http://digiactive.com.au/blog/2013/12/13/follow-us-on-twitter/"/>
+    <updated>2013-12-13T14:14:03+11:00</updated>
+    <id>http://digiactive.com.au/blog/2013/12/13/follow-us-on-twitter</id>
+    <content type="html"><![CDATA[<p>We&rsquo;re now tweeting as <a href="https://twitter.com/digiactive_cbr">@digiactive_cbr</a>!</p>
+
+<p><a href="https://twitter.com/digiactive_cbr" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @digiactive_cbr</a></p>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello World]]></title>
