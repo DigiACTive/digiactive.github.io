@@ -1,23 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://digiactive.com.au/blog/2013/11/24/hello-world/</loc>
+        <loc>http://DigiACTive.github.io/blog/2013/11/24/hello-world/</loc>
         <lastmod>2013-11-24T17:24:11+11:00</lastmod>
     </url>
     <url>
-        <loc>http://digiactive.com.au/blog/2013/12/13/follow-us-on-twitter/</loc>
-        <lastmod>2013-12-13T14:15:57+11:00</lastmod>
+        <loc>
+            http://DigiACTive.github.io/blog/2013/12/21/being-part-of-the-open-source-ecosystem/
+        </loc>
+        <lastmod>2013-12-24T15:19:20+11:00</lastmod>
     </url>
     <url>
-        <loc>http://digiactive.com.au/blog/archives/</loc>
-        <lastmod>2013-12-13T14:15:57+11:00</lastmod>
+        <loc>http://DigiACTive.github.io/blog/archives/</loc>
+        <lastmod>2013-12-24T15:19:20+11:00</lastmod>
     </url>
     <url>
-        <loc>http://digiactive.com.au/robots.txt</loc>
+        <loc>http://DigiACTive.github.io/robots.txt</loc>
         <lastmod>2013-11-24T16:42:27+11:00</lastmod>
     </url>
     <url>
-        <loc>http://digiactive.com.au/</loc>
-        <lastmod>2013-12-13T14:15:57+11:00</lastmod>
+        <loc>http://DigiACTive.github.io/</loc>
+        <lastmod>2013-12-24T15:19:20+11:00</lastmod>
     </url>
 </urlset>

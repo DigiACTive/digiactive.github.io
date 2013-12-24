@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[DigiACTive]]></title>
-  <link href="http://DigiACTive.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Django | DigiACTive]]></title>
+  <link href="http://DigiACTive.github.io/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://DigiACTive.github.io/"/>
   <updated>2013-12-24T15:19:51+11:00</updated>
   <id>http://DigiACTive.github.io/</id>
@@ -37,25 +37,6 @@
 <h2>Looking forward</h2>
 
 <p>We&rsquo;ve been making good progress building our framework and we&rsquo;re looking forward to making increasingly rapid progress towards the Digital Canberra Challenge project!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://DigiACTive.github.io/blog/2013/11/24/hello-world/"/>
-    <updated>2013-11-24T16:58:20+11:00</updated>
-    <id>http://DigiACTive.github.io/blog/2013/11/24/hello-world</id>
-    <content type="html"><![CDATA[<p>Greetings, Internet!</p>
-
-<p>We&rsquo;re DigiACTive, a team of students from the <a href="http://anu.edu.au">Australian National University</a> competing in the inaugural <a href="http://digitalcanberrachallenge.com.au">Digital Canberra Challenge</a>.</p>
-
-<p>We&rsquo;re working with the <a href="http://tams.act.gov.au">ACT Territory and Municipal Services Directorate</a> and <a href="http://nicta.com.au">National ICT Australia</a> to improve the system of obtaining government permits and approvals to hold public events. At the moment, permit applications are long and complex, and it&rsquo;s easy to accidentally forget to submit important documents &mdash; making the process difficult and frustrating for event organisers. On the other side, the government&rsquo;s legacy systems make it hard to track the progress of applications, making the approval process slower than it ought to be. Overall, it&rsquo;s all a bit of a mess!</p>
-
-<p>That&rsquo;s where we come in. Over the next few months, we&rsquo;ll be developing a proof-of-concept system to help both event organisers and government officials keep track of complex applications while making sure they&rsquo;re complying with all the appropriate regulations. Our prototype will help guide the ACT Government as it adopts new technology to replace the existing permits system.</p>
-
-<p>It&rsquo;s early stages at the moment &mdash; we&rsquo;ll try to keep this blog updated as we go so you can have some idea what we&rsquo;re up to. In the meantime, if you&rsquo;ve got some ideas on how to improve the permits system, we&rsquo;d love to hear from you! Contact us at <a href="mailto:digiactive.canberra%20at%20gmail%20dot%20com">digiactive.canberra at gmail dot com</a>.</p>
-
-<p>- The DigiACTive Team</p>
 ]]></content>
   </entry>
   
