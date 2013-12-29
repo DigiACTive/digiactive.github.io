@@ -11,8 +11,14 @@
         <lastmod>2013-12-24T15:29:36+11:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://DigiACTive.github.io/blog/2013/12/28/setting-up-python-2-dot-7-on-centos-6-dot-4-the-really-easy-way/
+        </loc>
+        <lastmod>2013-12-29T17:37:35+11:00</lastmod>
+    </url>
+    <url>
         <loc>http://DigiACTive.github.io/blog/archives/</loc>
-        <lastmod>2013-12-24T15:29:36+11:00</lastmod>
+        <lastmod>2013-12-29T17:37:35+11:00</lastmod>
     </url>
     <url>
         <loc>http://DigiACTive.github.io/robots.txt</loc>
@@ -20,6 +26,6 @@
     </url>
     <url>
         <loc>http://DigiACTive.github.io/</loc>
-        <lastmod>2013-12-24T15:29:36+11:00</lastmod>
+        <lastmod>2013-12-29T17:37:35+11:00</lastmod>
     </url>
 </urlset>
