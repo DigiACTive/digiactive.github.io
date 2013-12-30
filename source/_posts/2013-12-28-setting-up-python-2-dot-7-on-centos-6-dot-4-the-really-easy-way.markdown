@@ -34,7 +34,7 @@ I was wrong.
 
 If you create a virtualenv inside scl, and then exit scl and try to run Python, it fails:
 
-```shell
+```sh
 [vagrant@localhost tmp]$ scl enable python27 bash # enable the Python 2.7 environment
 [vagrant@localhost tmp]$ virtualenv foo
 [vagrant@localhost tmp]$ exit # leave the 2.7 environment, back to 2.6
@@ -51,7 +51,7 @@ The correct solution is to just wrap everything in scl: making `scl enable pytho
 
 For times when it is impossible or very difficult to use scl enable as designed (for example when you're using someone else's chef cookbook), you can work around it. On my 64 bit system, the library it's looking for is in `/opt/rh/python27/root/usr/lib64`, so you just need to set an environment variable for that:
 
-```shell
+```sh
 env LD_LIBRARY_PATH=/opt/rh/python27/root/usr/lib64 /opt/rh/python27/root/usr/bin/python
 ```
 
