@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Centos | DigiACTive]]></title>
   <link href="http://DigiACTive.github.io/blog/categories/centos/atom.xml" rel="self"/>
   <link href="http://DigiACTive.github.io/"/>
-  <updated>2013-12-29T17:38:06+11:00</updated>
+  <updated>2013-12-30T16:15:20+11:00</updated>
   <id>http://DigiACTive.github.io/</id>
   <author>
     <name><![CDATA[DigiACTive Team]]></name>
@@ -54,7 +54,7 @@
 
 <p>If you create a virtualenv inside scl, and then exit scl and try to run Python, it fails:</p>
 
-<p><code>shell
+<p><code>sh
 [vagrant@localhost tmp]$ scl enable python27 bash # enable the Python 2.7 environment
 [vagrant@localhost tmp]$ virtualenv foo
 [vagrant@localhost tmp]$ exit # leave the 2.7 environment, back to 2.6
@@ -71,7 +71,7 @@ python: error while loading shared libraries: libpython2.7.so.1.0: cannot open s
 
 <p>For times when it is impossible or very difficult to use scl enable as designed (for example when you&rsquo;re using someone else&rsquo;s chef cookbook), you can work around it. On my 64 bit system, the library it&rsquo;s looking for is in <code>/opt/rh/python27/root/usr/lib64</code>, so you just need to set an environment variable for that:</p>
 
-<p><code>shell
+<p><code>sh
 env LD_LIBRARY_PATH=/opt/rh/python27/root/usr/lib64 /opt/rh/python27/root/usr/bin/python
 </code></p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[DigiACTive]]></title>
   <link href="http://DigiACTive.github.io/atom.xml" rel="self"/>
   <link href="http://DigiACTive.github.io/"/>
-  <updated>2013-12-24T15:29:43+11:00</updated>
+  <updated>2013-12-30T16:15:20+11:00</updated>
   <id>http://DigiACTive.github.io/</id>
   <author>
     <name><![CDATA[DigiACTive Team]]></name>
@@ -12,6 +12,98 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up Python 2.7 on CentOS 6.4 the (Really) Easy Way]]></title>
+    <link href="http://DigiACTive.github.io/blog/2013/12/28/setting-up-python-2-dot-7-on-centos-6-dot-4-the-really-easy-way/"/>
+    <updated>2013-12-28T19:23:30+11:00</updated>
+    <id>http://DigiACTive.github.io/blog/2013/12/28/setting-up-python-2-dot-7-on-centos-6-dot-4-the-really-easy-way</id>
+    <content type="html"><![CDATA[<p>Setting up Python 2.7 on CentOS 6.4 is not particularly easy: CentOS ships with 2.6 and yum seems to depend on it.</p>
+
+<p>The traditional way to do this is to build Python from source, and there is even a <a href="https://github.com/shimizukawa/chef-python-build">Chef cookbook</a> to do this.</p>
+
+<p>However, this is slow, and when you want to verify that your box builds correctly so that your team can start work on it, you want to minimise these sorts of delays. So I (Daniel) have been hunting around for the best way to install pre-built RPMs.</p>
+
+<p>The closest I found was this excellent article from Red Hat: <a href="http://developerblog.redhat.com/2013/02/14/setting-up-django-and-python-2-7-on-red-hat-enterprise-6-the-easy-way/">Setting up Django and Python 2.7 on Red Hat Enterprise 6 the easy way</a>.</p>
+
+<p>To summarise the article, RHEL (and CentOS) support &lsquo;software containers&rsquo;. They&rsquo;re sort of like virtualenvs or RVMs for packages &ndash; isolated, but more lightweight than full chroots. Python 2.7 is a supported container. Not all the steps are the same for CentOS as they are for RHEL, so here&rsquo;s an update of the article for CentOS:</p>
+
+<ul>
+<li>CentOS makes it even easier than RHEL to set up the SCLs. Instead of writing random files to your filesystem, you just need to <code>yum install centos-release-SCL</code></li>
+<li>You&rsquo;re now ready to do a <code>yum install python27</code></li>
+<li>As with RHEL, you can now pop a shell with Python 2.7 by simply doing <code>scl enable python27 bash</code>
+
+<ul>
+<li>If you want to run commands with more than one argument, you need to enclose them in quotes, otherwise <code>scl</code> will interpret them as other environments to enable.</li>
+</ul>
+</li>
+</ul>
+
+
+<p><strong>As long as you are happy running <code>scl enable python27 bash</code> before work, you&rsquo;re now set.</strong></p>
+
+<h1>The gotchas</h1>
+
+<p>While this is much, much faster than building from source, there are two, interrelated gotchas to bear in mind.</p>
+
+<h2>Virtualenvs no longer shield you from interpreter differences</h2>
+
+<p>I naively expected that virtualenvs would &lsquo;just work&rsquo; and would prevent me from having to think about the extra layer of &lsquo;magic&rsquo; I had just added.</p>
+
+<p>I was wrong.</p>
+
+<p>If you create a virtualenv inside scl, and then exit scl and try to run Python, it fails:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>vagrant@localhost tmp<span class="o">]</span><span class="nv">$ </span>scl <span class="nb">enable </span>python27 bash <span class="c"># enable the Python 2.7 environment</span>
+</span><span class='line'><span class="o">[</span>vagrant@localhost tmp<span class="o">]</span><span class="nv">$ </span>virtualenv foo
+</span><span class='line'><span class="o">[</span>vagrant@localhost tmp<span class="o">]</span><span class="nv">$ </span><span class="nb">exit</span> <span class="c"># leave the 2.7 environment, back to 2.6</span>
+</span><span class='line'><span class="o">[</span>vagrant@localhost tmp<span class="o">]</span><span class="nv">$ </span><span class="nb">source </span>foo/bin/activate
+</span><span class='line'><span class="o">(</span>foo<span class="o">)[</span>vagrant@localhost tmp<span class="o">]</span><span class="nv">$ </span>python
+</span><span class='line'>python: error <span class="k">while </span>loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No such file or directory
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You get the same error when you try to create a virtualenv with the newly installed binary outside of scl.</p>
+
+<p>The correct solution is to just wrap everything in scl: making <code>scl enable python27 bash</code> part of your workflow, just like <code>source env/bin/activate</code>.</p>
+
+<h2>Not everything is easy to wrap in scl enable</h2>
+
+<p>For times when it is impossible or very difficult to use scl enable as designed (for example when you&rsquo;re using someone else&rsquo;s chef cookbook), you can work around it. On my 64 bit system, the library it&rsquo;s looking for is in <code>/opt/rh/python27/root/usr/lib64</code>, so you just need to set an environment variable for that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>env <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/opt/rh/python27/root/usr/lib64 /opt/rh/python27/root/usr/bin/python
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you&rsquo;re writing a Chef cookbook, you can give an <code>execute</code> block (or similar) an environment parameter:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">execute</span> <span class="s2">&quot;foo&quot;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">environment</span> <span class="s2">&quot;LD_LIBRARY_PATH&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;/opt/rh/python27/root/usr/lib64/&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Conclusion</h1>
+
+<p>Using a packaged Python is a &ldquo;good thing&rdquo;. The most obvious reason is that of security: if you&rsquo;ve hardcoded a version of Python to download, build and install, and a security hole is found and a new version is released, you&rsquo;ll have to manually update all your recipes. If you&rsquo;re using distro packages, it&rsquo;ll happen more or less automatically in your regular updates.</p>
+
+<p>The second reason distro packages are better is simply that of speed. Time is money: why spend it waiting Python to build?</p>
+
+<p>Hopefully this makes it a bit easier for you all.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Being Part of the Open Source Software Ecosystem]]></title>
