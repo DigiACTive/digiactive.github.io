@@ -1,24 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Open-source | DigiACTive]]></title>
-  <link href="http://DigiACTive.github.io/blog/categories/open-source/atom.xml" rel="self"/>
-  <link href="http://DigiACTive.github.io/"/>
-  <updated>2014-01-19T00:01:00+11:00</updated>
-  <id>http://DigiACTive.github.io/</id>
-  <author>
-    <name><![CDATA[DigiACTive Team]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vagrant, NFS Synced Folders, Permissions, and Bindfs on CentOS 6 - DigiACTive</title>
+  <meta name="author" content="DigiACTive Team">
 
   
-  <entry>
-    <title type="html"><![CDATA[Vagrant, NFS Synced Folders, Permissions, and Bindfs on CentOS 6]]></title>
-    <link href="http://DigiACTive.github.io/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders/"/>
-    <updated>2014-01-18T23:59:00+11:00</updated>
-    <id>http://DigiACTive.github.io/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders</id>
-    <content type="html"><![CDATA[<p><em>WARNING: highly technical post ahead!</em></p>
+  <meta name="description" content="WARNING: highly technical post ahead! A tale of two synced folder backend implementations Here at DigiACTive, we&rsquo;ve made much use of Vagrant to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://DigiACTive.github.io/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DigiACTive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DigiACTive</a></h1>
+  
+    <h2>[insert witty subtitle here]</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:DigiACTive.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vagrant, NFS Synced Folders, Permissions, and Bindfs on CentOS 6</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-18T23:59:00+11:00" pubdate data-updated="true">Jan 18<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>WARNING: highly technical post ahead!</em></p>
 
 <h1>A tale of two synced folder backend implementations</h1>
 
@@ -42,14 +115,20 @@
 
 <p>However, it soon became apparent that there was another issue here:</p>
 
-<p><code>sh
-[vagrant@localhost vagrant]$ ls -la
-total 84
-...
-drwxr-xr-x   2 1000 1000 4096 Dec  7 05:46 scope
-drwxr-xr-x   3 1000 1000 4096 Jan 16 12:13 src
-drwxr-xr-x   4 1000 1000 4096 Nov 19 00:51 vagrant
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>vagrant@localhost vagrant<span class="o">]</span><span class="nv">$ </span>ls -la
+</span><span class='line'>total 84
+</span><span class='line'>...
+</span><span class='line'>drwxr-xr-x   2 1000 1000 4096 Dec  7 05:46 scope
+</span><span class='line'>drwxr-xr-x   3 1000 1000 4096 Jan 16 12:13 src
+</span><span class='line'>drwxr-xr-x   4 1000 1000 4096 Nov 19 00:51 vagrant
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>It turns out that NFS shares UIDs between the server and clients &mdash; which is fine if all systems use the same authentication backend. This isn&rsquo;t the case in a Vagrant system, obviously. NFS does not provide a built-in way to map between different server/client users &mdash; I believe this can be accomplished with a proper directory service, but we weren&rsquo;t going to set that up just for a simple development VM.</p>
 
@@ -99,34 +178,122 @@ drwxr-xr-x   4 1000 1000 4096 Nov 19 00:51 vagrant
 <li><a href="http://digiactive.com.au/digiactive-repo/RPM-GPG-KEY.asc">DigiACTive PGP Signing Key</a></li>
 </ul>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Being Part of the Open Source Software Ecosystem]]></title>
-    <link href="http://DigiACTive.github.io/blog/2013/12/21/being-part-of-the-open-source-ecosystem/"/>
-    <updated>2013-12-21T03:23:08+11:00</updated>
-    <id>http://DigiACTive.github.io/blog/2013/12/21/being-part-of-the-open-source-ecosystem</id>
-    <content type="html"><![CDATA[<p>At DigiACTive, we&rsquo;re building our solution on top of an open source software stack. Practically, we had a number of reasons for chosing open source, including price, ease of access and cross-platform compatibility. More fundamentally, open source software has played a huge role in bringing technological innovations to those who would otherwise not have had access to them, and that&rsquo;s very much in line with how we see the Digital Canberra Challenge.</p>
 
-<p>It&rsquo;s therefore very exciting to be part of advancing the state of open source software in a couple of small ways.</p>
+<span class="byline author vcard">Posted by <span class="fn">DigiACTive Team</span></span>
 
-<h2>Improving django-storage-swift</h2>
+      
 
-<p>We recently submitted a set of patches to <a href="https://github.com/wecreatepixels/django-storage-swift">django-storage-swift</a>, a Python module for interfacing between <a href="http://django.org/">Django</a>, our web framework of choice, and <a href="http://docs.openstack.org/developer/swift/">OpenStack Swift</a>, our object store of choice.</p>
 
-<p>Our main contribution is support for temporary URLs. Temporary URLs provide a way for us to grant users access to their files and their files only in a simple and transparent way. In particular, they are an excellent and simple mechanism for preventing attackers from accessing confidential information by guessing file names. We also improved the out-of-the-box experience for users of django-storage-swift, and made a couple of other minor fixes and improvements.</p>
 
-<p>We&rsquo;ve made our changes available in <a href="https://github.com/DigiACTive/django-storage-swift/tree/digiactive">our fork of the project</a>, and contributed them back to the original project with pull requests.</p>
 
-<h2>Updating the clamav chef cookbook</h2>
 
-<p>We&rsquo;re using <a href="http://docs.opscode.com/chef_solo.html">chef-solo</a> with <a href="http://vagrantup.com/">Vagrant</a> to deploy repeatable environments for development. We recently tried to install <a href="https://github.com/RoboticCheese/clamav">a cookbook</a> to support <a href="http://www.clamav.net/lang/en/">clamav</a> so we can virus scan user-submitted files, but discovered that it&rsquo;s not compatible with the most recent updates to the <a href="https://github.com/opscode-cookbooks/yum#notes">yum cookbook</a>. We&rsquo;ve updated it and submitted the changes back to the original author, and they&rsquo;ve been well received and merged in.</p>
 
-<h2>Looking forward</h2>
 
-<p>We&rsquo;ve been making good progress building our framework and we&rsquo;re looking forward to making increasingly rapid progress towards the Digital Canberra Challenge project!</p>
-]]></content>
-  </entry>
+
   
-</feed>
+
+
+<time datetime="2014-01-18T23:59:00+11:00" pubdate data-updated="true">Jan 18<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bindfs/'>bindfs</a>, <a class='category' href='/blog/categories/nfs/'>nfs</a>, <a class='category' href='/blog/categories/open-source/'>open-source</a>, <a class='category' href='/blog/categories/vagrant/'>vagrant</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://DigiACTive.github.io/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders/" data-via="" data-counturl="http://DigiACTive.github.io/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/28/setting-up-python-2-dot-7-on-centos-6-dot-4-the-really-easy-way/" title="Previous Post: Setting up Python 2.7 on CentOS 6.4 the (really) easy way">&laquo; Setting up Python 2.7 on CentOS 6.4 the (really) easy way</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/01/18/fixing-permissions-on-vagrant-nfs-synced-folders/">Vagrant, NFS Synced Folders, Permissions, and Bindfs on CentOS 6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/28/setting-up-python-2-dot-7-on-centos-6-dot-4-the-really-easy-way/">Setting Up Python 2.7 on CentOS 6.4 the (Really) Easy Way</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/21/being-part-of-the-open-source-ecosystem/">Being Part of the Open Source Software Ecosystem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/24/hello-world/">Hello World</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 DigiACTive Pty Ltd (ABN 62 166 886 871) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

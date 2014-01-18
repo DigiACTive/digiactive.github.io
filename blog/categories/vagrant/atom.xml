@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Open-source | DigiACTive]]></title>
-  <link href="http://DigiACTive.github.io/blog/categories/open-source/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Vagrant | DigiACTive]]></title>
+  <link href="http://DigiACTive.github.io/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://DigiACTive.github.io/"/>
   <updated>2014-01-19T00:01:00+11:00</updated>
   <id>http://DigiACTive.github.io/</id>
@@ -99,33 +99,6 @@ drwxr-xr-x   4 1000 1000 4096 Nov 19 00:51 vagrant
 <li><a href="http://digiactive.com.au/digiactive-repo/RPM-GPG-KEY.asc">DigiACTive PGP Signing Key</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Being Part of the Open Source Software Ecosystem]]></title>
-    <link href="http://DigiACTive.github.io/blog/2013/12/21/being-part-of-the-open-source-ecosystem/"/>
-    <updated>2013-12-21T03:23:08+11:00</updated>
-    <id>http://DigiACTive.github.io/blog/2013/12/21/being-part-of-the-open-source-ecosystem</id>
-    <content type="html"><![CDATA[<p>At DigiACTive, we&rsquo;re building our solution on top of an open source software stack. Practically, we had a number of reasons for chosing open source, including price, ease of access and cross-platform compatibility. More fundamentally, open source software has played a huge role in bringing technological innovations to those who would otherwise not have had access to them, and that&rsquo;s very much in line with how we see the Digital Canberra Challenge.</p>
-
-<p>It&rsquo;s therefore very exciting to be part of advancing the state of open source software in a couple of small ways.</p>
-
-<h2>Improving django-storage-swift</h2>
-
-<p>We recently submitted a set of patches to <a href="https://github.com/wecreatepixels/django-storage-swift">django-storage-swift</a>, a Python module for interfacing between <a href="http://django.org/">Django</a>, our web framework of choice, and <a href="http://docs.openstack.org/developer/swift/">OpenStack Swift</a>, our object store of choice.</p>
-
-<p>Our main contribution is support for temporary URLs. Temporary URLs provide a way for us to grant users access to their files and their files only in a simple and transparent way. In particular, they are an excellent and simple mechanism for preventing attackers from accessing confidential information by guessing file names. We also improved the out-of-the-box experience for users of django-storage-swift, and made a couple of other minor fixes and improvements.</p>
-
-<p>We&rsquo;ve made our changes available in <a href="https://github.com/DigiACTive/django-storage-swift/tree/digiactive">our fork of the project</a>, and contributed them back to the original project with pull requests.</p>
-
-<h2>Updating the clamav chef cookbook</h2>
-
-<p>We&rsquo;re using <a href="http://docs.opscode.com/chef_solo.html">chef-solo</a> with <a href="http://vagrantup.com/">Vagrant</a> to deploy repeatable environments for development. We recently tried to install <a href="https://github.com/RoboticCheese/clamav">a cookbook</a> to support <a href="http://www.clamav.net/lang/en/">clamav</a> so we can virus scan user-submitted files, but discovered that it&rsquo;s not compatible with the most recent updates to the <a href="https://github.com/opscode-cookbooks/yum#notes">yum cookbook</a>. We&rsquo;ve updated it and submitted the changes back to the original author, and they&rsquo;ve been well received and merged in.</p>
-
-<h2>Looking forward</h2>
-
-<p>We&rsquo;ve been making good progress building our framework and we&rsquo;re looking forward to making increasingly rapid progress towards the Digital Canberra Challenge project!</p>
 ]]></content>
   </entry>
   
